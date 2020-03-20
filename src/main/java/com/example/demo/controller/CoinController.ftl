@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping(" ${domainName?uncap_first}s")
+@RequestMapping("${domainName?uncap_first}s")
 public class ${domainName?cap_first}Controller {
     @Resource
     private ${domainName?cap_first}Service ${domainName?uncap_first}Service;

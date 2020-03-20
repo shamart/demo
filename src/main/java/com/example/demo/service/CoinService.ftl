@@ -34,8 +34,10 @@ public class ${domainName?cap_first}Service {
             ArrayList<Predicate> predicates = new ArrayList<>();
     <#list domainProperties as x>
         <#if x.type == 'Date'>
-            if (${domainName?uncap_first}FindDTO.get${x.value?cap_first}() != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("${x.value}"), ${domainName?uncap_first}FindDTO.get${x.value?cap_first}Before()));
+            if (${domainName?uncap_first}FindDTO.get${x.value?cap_first}Before() != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("${x.value}"), ${domainName?uncap_first}FindDTO.get${x.value?cap_first}After()));
+            }
+            if (${domainName?uncap_first}FindDTO.get${x.value?cap_first}After() != null) {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("${x.value}"), ${domainName?uncap_first}FindDTO.get${x.value?cap_first}After()));
             }
         <#elseif x == 'Integer'>
