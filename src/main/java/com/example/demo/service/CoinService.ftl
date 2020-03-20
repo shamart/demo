@@ -29,6 +29,12 @@ public class ${domainName?cap_first}Service {
 
     public Page<${domainName?cap_first}> findAll(${domainName?cap_first}FindDTO ${domainName?uncap_first}FindDTO, int page, int size,
                               Sort.Direction direction, String[] sortProperties) {
+        if (direction==null){
+            direction= Sort.Direction.ASC;
+        }
+        if (sortProperties == null) {
+            sortProperties = new String[]{"id"};
+        }
         PageRequest request = PageRequest.of(page, size, direction, sortProperties);
         return ${domainName?uncap_first}Repository.findAll((Specification<${domainName?cap_first}>) (root, criteriaQuery, criteriaBuilder) -> {
             ArrayList<Predicate> predicates = new ArrayList<>();

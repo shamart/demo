@@ -29,6 +29,12 @@ public class CoinService {
 
     public Page<Coin> findAll(CoinFindDTO coinFindDTO, int page, int size,
                               Sort.Direction direction, String[] sortProperties) {
+        if (direction==null){
+            direction= Sort.Direction.ASC;
+        }
+        if (sortProperties == null) {
+            sortProperties = new String[]{"id"};
+        }
         PageRequest request = PageRequest.of(page, size, direction, sortProperties);
         return coinRepository.findAll((Specification<Coin>) (root, criteriaQuery, criteriaBuilder) -> {
             ArrayList<Predicate> predicates = new ArrayList<>();

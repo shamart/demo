@@ -19,7 +19,7 @@ public class CoinController {
     private CoinService coinService;
 
     @GetMapping
-    public Page<Coin> findAll(@RequestParam(required = false) CoinFindDTO coinFindDTO,
+    public Page<Coin> findAll(CoinFindDTO coinFindDTO,
                               @RequestParam(required = false) int page,
                               @RequestParam(required = false) int size,
                               @RequestParam(required = false) Sort.Direction direction,
@@ -27,9 +27,9 @@ public class CoinController {
         return coinService.findAll(coinFindDTO, page, size, direction, sortProperties);
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Coin findById(Long id) {
+    public Coin findById(@PathVariable Long id) {
         return coinService.findById(id);
     }
 

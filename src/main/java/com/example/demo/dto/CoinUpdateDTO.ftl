@@ -1,6 +1,7 @@
 package  ${groupId}.${artifactId}.dto;
 
 import lombok.Data;
+import java.util.Date;
 
 @Data
 public class  ${domainName?cap_first}UpdateDTO {

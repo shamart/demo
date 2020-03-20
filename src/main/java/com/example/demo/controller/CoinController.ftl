@@ -19,7 +19,7 @@ public class ${domainName?cap_first}Controller {
     private ${domainName?cap_first}Service ${domainName?uncap_first}Service;
 
     @GetMapping
-    public Page<${domainName?cap_first}> findAll(@RequestParam(required = false) ${domainName?cap_first}FindDTO ${domainName?uncap_first}FindDTO,
+    public Page<${domainName?cap_first}> findAll(${domainName?cap_first}FindDTO ${domainName?uncap_first}FindDTO,
                               @RequestParam(required = false) int page,
                               @RequestParam(required = false) int size,
                               @RequestParam(required = false) Sort.Direction direction,
@@ -27,9 +27,9 @@ public class ${domainName?cap_first}Controller {
         return ${domainName?uncap_first}Service.findAll(${domainName?uncap_first}FindDTO, page, size, direction, sortProperties);
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ${domainName?cap_first} findById(Long id) {
+    public ${domainName?cap_first} findById(@PathVariable Long id) {
         return ${domainName?uncap_first}Service.findById(id);
     }
 
