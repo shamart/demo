@@ -2,11 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Coin;
 import com.example.demo.dto.CoinCreateDTO;
+import com.example.demo.dto.CoinFindDTO;
 import com.example.demo.dto.CoinUpdateDTO;
 import com.example.demo.handler.BusinessException;
 import com.example.demo.handler.ErrorEnum;
 import com.example.demo.repository.CoinRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CoinService {
@@ -26,17 +27,19 @@ public class CoinService {
     @Resource
     private ModelMapper modelMapper;
 
-    public List<Coin> findAll(Coin coin, int page, int size,
+    public Page<Coin> findAll(CoinFindDTO coinFindDTO, int page, int size,
                               Sort.Direction direction, String[] sortProperties) {
         PageRequest request = PageRequest.of(page, size, direction, sortProperties);
         return coinRepository.findAll((Specification<Coin>) (root, criteriaQuery, criteriaBuilder) -> {
             ArrayList<Predicate> predicates = new ArrayList<>();
             //todo
-            if (coin.getId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("id"), coin.getId()));
+            if (coinFindDTO.getId() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("id"), coinFindDTO.getId()));
             }
+//            criteriaBuilder.greaterThanOrEqualTo();
+//            criteriaBuilder.lessThanOrEqualTo()
             return criteriaQuery.where(predicates.toArray(new Predicate[0])).getRestriction();
-        });
+        }, request);
     }
 
     public Coin findById(Long id) {

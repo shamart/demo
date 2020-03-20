@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Coin;
 import com.example.demo.dto.CoinCreateDTO;
+import com.example.demo.dto.CoinFindDTO;
 import com.example.demo.dto.CoinUpdateDTO;
 import com.example.demo.service.CoinService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +20,12 @@ public class CoinController {
     private CoinService coinService;
 
     @GetMapping
-    public List<Coin> findAll(@RequestParam(required = false) Coin coin,
+    public Page<Coin> findAll(@RequestParam(required = false) CoinFindDTO coinFindDTO,
                               @RequestParam(required = false) int page,
                               @RequestParam(required = false) int size,
                               @RequestParam(required = false) Sort.Direction direction,
                               @RequestParam(required = false) String[] sortProperties) {
-        return coinService.findAll(coin, page, size, direction, sortProperties);
+        return coinService.findAll(coinFindDTO, page, size, direction, sortProperties);
     }
 
     @GetMapping
