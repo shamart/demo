@@ -22,73 +22,73 @@ import java.util.ArrayList;
 public class ${domainName?cap_first}Service {
 
     @Resource
-    private ${domainName?cap_first}Repository ${domainName}Repository;
+    private ${domainName?cap_first}Repository ${domainName?uncap_first}Repository;
 
     @Resource
     private ModelMapper modelMapper;
 
-    public Page<${domainName?cap_first}> findAll(${domainName?cap_first}FindDTO ${domainName}FindDTO, int page, int size,
+    public Page<${domainName?cap_first}> findAll(${domainName?cap_first}FindDTO ${domainName?uncap_first}FindDTO, int page, int size,
                               Sort.Direction direction, String[] sortProperties) {
         PageRequest request = PageRequest.of(page, size, direction, sortProperties);
-        return ${domainName}Repository.findAll((Specification<${domainName?cap_first}>) (root, criteriaQuery, criteriaBuilder) -> {
+        return ${domainName?uncap_first}Repository.findAll((Specification<${domainName?cap_first}>) (root, criteriaQuery, criteriaBuilder) -> {
             ArrayList<Predicate> predicates = new ArrayList<>();
     <#list domainProperties as x>
         <#if x.type == 'Date'>
-            if (${domainName}FindDTO.get${x.value?cap_first}() != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("${x.value}"), ${domainName}FindDTO.get${x.value?cap_first}Before()));
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("${x.value}"), ${domainName}FindDTO.get${x.value?cap_first}After()));
+            if (${domainName?uncap_first}FindDTO.get${x.value?cap_first}() != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("${x.value}"), ${domainName?uncap_first}FindDTO.get${x.value?cap_first}Before()));
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("${x.value}"), ${domainName?uncap_first}FindDTO.get${x.value?cap_first}After()));
             }
         <#elseif x == 'Integer'>
-            if (${domainName}FindDTO.get${x.value?cap_first}() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("${x.value}"), ${domainName}FindDTO.get${x.value?cap_first}()));
+            if (${domainName?uncap_first}FindDTO.get${x.value?cap_first}() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("${x.value}"), ${domainName?uncap_first}FindDTO.get${x.value?cap_first}()));
             }
         <#else>
-            if (${domainName}FindDTO.get${x.value?cap_first}() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("${x.value}"), ${domainName}FindDTO.get${x.value?cap_first}()));
+            if (${domainName?uncap_first}FindDTO.get${x.value?cap_first}() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("${x.value}"), ${domainName?uncap_first}FindDTO.get${x.value?cap_first}()));
             }
         </#if>
     </#list>
-            if (coinFindDTO.getId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("id"), coinFindDTO.getId()));
+            if (${domainName?uncap_first}FindDTO.getId() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("id"), ${domainName?uncap_first}FindDTO.getId()));
             }
             return criteriaQuery.where(predicates.toArray(new Predicate[0])).getRestriction();
         }, request);
     }
 
     public ${domainName?cap_first} findById(Long id) {
-        return ${domainName}Repository
+        return ${domainName?uncap_first}Repository
                 .findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorEnum.${domainName?upper_case}_NOT_EXIST));
     }
 
     public ${domainName?cap_first} create(${domainName?cap_first}CreateDTO ${domainName}CreateDTO) {
         ${domainName?cap_first} ${domainName} = modelMapper.map(${domainName}CreateDTO, ${domainName?cap_first}.class);
-        return ${domainName}Repository.save(${domainName});
+        return ${domainName?uncap_first}Repository.save(${domainName});
     }
 
-    public ${domainName?cap_first} updateAll(${domainName?cap_first}UpdateDTO ${domainName}UpdateDTO) {
-        return ${domainName}Repository
-                .findById(${domainName}UpdateDTO.getId())
+    public ${domainName?cap_first} updateAll(${domainName?cap_first}UpdateDTO ${domainName?uncap_first}UpdateDTO) {
+        return ${domainName?uncap_first}Repository
+                .findById(${domainName?uncap_first}UpdateDTO.getId())
                 .map(x -> {
-                    ${domainName?cap_first} new${domainName?cap_first} = modelMapper.map(${domainName}UpdateDTO, ${domainName?cap_first}.class);
-                    ${domainName}Repository.save(new${domainName?cap_first});
+                    ${domainName?cap_first} new${domainName?cap_first} = modelMapper.map(${domainName?uncap_first}UpdateDTO, ${domainName?cap_first}.class);
+                    ${domainName?uncap_first}Repository.save(new${domainName?cap_first});
                     return new${domainName?cap_first};
                 })
                 .orElseThrow(() -> new BusinessException(ErrorEnum.${domainName?upper_case}_NOT_EXIST));
     }
 
-    public ${domainName?cap_first} updatePartial(${domainName?cap_first}UpdateDTO ${domainName}UpdateDTO) {
-        return ${domainName}Repository
-                .findById(${domainName}UpdateDTO.getId())
+    public ${domainName?cap_first} updatePartial(${domainName?cap_first}UpdateDTO ${domainName?uncap_first}UpdateDTO) {
+        return ${domainName?uncap_first}Repository
+                .findById(${domainName?uncap_first}UpdateDTO.getId())
                 .map(x -> {
-                    ${domainName}Repository.save(x);
+                    ${domainName?uncap_first}Repository.save(x);
                     return x;
                 })
                 .orElseThrow(() -> new BusinessException(ErrorEnum.${domainName?upper_case}_NOT_EXIST));
     }
 
     public void delete(Long id) {
-        ${domainName}Repository.deleteById(id);
+        ${domainName?uncap_first}Repository.deleteById(id);
     }
 
 }

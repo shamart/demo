@@ -1,9 +1,9 @@
-package com.example.demo.dto;
+package  ${groupId}.${artifactId}.dto;
 
 import lombok.Data;
 
 @Data
-public class CoinFindDTO {
+public class  ${domainName?cap_first}FindDTO {
     private Long id;
 
 <#list domainProperties as x>
