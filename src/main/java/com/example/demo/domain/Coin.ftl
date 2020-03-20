@@ -16,6 +16,6 @@ public class ${domainName?cap_first} {
     private Long id;
 
 <#list domainProperties as x>
-    private ${x.type} ${x.value}
+    private ${x.type} ${x.value};
 </#list>
 }

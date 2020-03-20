@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Data
 @Accessors(chain = true)
 @Entity
-public class User {
+public class Coin {
     @Id
     @GeneratedValue
     private Long id;
