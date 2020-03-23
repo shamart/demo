@@ -69,9 +69,9 @@ public class ${domainName?cap_first}Service {
                 .orElseThrow(() -> new BusinessException(ErrorEnum.${domainName?upper_case}_NOT_EXIST));
     }
 
-    public ${domainName?cap_first} create(${domainName?cap_first}CreateDTO ${domainName}CreateDTO) {
-        ${domainName?cap_first} ${domainName} = modelMapper.map(${domainName}CreateDTO, ${domainName?cap_first}.class);
-        return ${domainName?uncap_first}Repository.save(${domainName});
+    public ${domainName?cap_first} create(${domainName?cap_first}CreateDTO ${domainName?uncap_first}CreateDTO) {
+        ${domainName?cap_first} ${domainName?uncap_first} = modelMapper.map(${domainName?uncap_first}CreateDTO, ${domainName?cap_first}.class);
+        return ${domainName?uncap_first}Repository.save(${domainName?uncap_first});
     }
 
     public ${domainName?cap_first} updateAll(${domainName?cap_first}UpdateDTO ${domainName?uncap_first}UpdateDTO) {

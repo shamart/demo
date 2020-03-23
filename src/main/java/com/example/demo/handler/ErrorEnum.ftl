@@ -2,7 +2,7 @@ package  ${groupId}.${artifactId}.handler;
 
 public enum ErrorEnum {
 <#list domains as x>
-    ${x.name?upper_case}_NOT_EXIST("4000", " ${x.name?upper_case}_NOT_EXIST"),
+    ${x.name?upper_case}_NOT_EXIST("${(4000+x?index)?c}", "${x.name?upper_case}_NOT_EXIST"),
 </#list>
 
     UNKNOWN_ERROR("-1", "UNKNOWN_ERROR"),

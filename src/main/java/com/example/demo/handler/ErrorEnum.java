@@ -6,9 +6,9 @@ public enum ErrorEnum {
     UNKNOWN_ERROR("-1", "UNKNOWN_ERROR"),
     ;
 
-    private String resultCode;
+    private final String resultCode;
 
-    private String resultMsg;
+    private final String resultMsg;
 
     ErrorEnum(String resultCode, String resultMsg) {
         this.resultCode = resultCode;
