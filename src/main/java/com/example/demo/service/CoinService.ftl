@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class ${domainName?cap_first}Service {
@@ -89,6 +90,16 @@ public class ${domainName?cap_first}Service {
         return ${domainName?uncap_first}Repository
                 .findById(${domainName?uncap_first}UpdateDTO.getId())
                 .map(x -> {
+                    Long id = ${domainName?uncap_first}UpdateDTO.getId();
+                        if (id != null) {
+                        x.setId(id);
+                    }
+    <#list domainProperties as x>
+                    ${x.type} ${x.value?uncap_first} = ${domainName?uncap_first}UpdateDTO.get${x.value?cap_first}();
+                    if (${x.value?uncap_first} != null) {
+                        x.set${x.value?cap_first}(${x.value?uncap_first});
+                    }
+    </#list>
                     ${domainName?uncap_first}Repository.save(x);
                     return x;
                 })

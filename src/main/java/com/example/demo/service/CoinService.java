@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class CoinService {
@@ -29,8 +30,8 @@ public class CoinService {
 
     public Page<Coin> findAll(CoinFindDTO coinFindDTO, int page, int size,
                               Sort.Direction direction, String[] sortProperties) {
-        if (direction==null){
-            direction= Sort.Direction.ASC;
+        if (direction == null) {
+            direction = Sort.Direction.ASC;
         }
         if (sortProperties == null) {
             sortProperties = new String[]{"id"};
@@ -74,6 +75,10 @@ public class CoinService {
         return coinRepository
                 .findById(coinUpdateDTO.getId())
                 .map(x -> {
+                    Long id = coinUpdateDTO.getId();
+                    if (id != null) {
+                        x.setId(id);
+                    }
                     coinRepository.save(x);
                     return x;
                 })
