@@ -67,7 +67,7 @@ public class ${domainName?cap_first}Service {
     public ${domainName?cap_first} findById(Long id) {
         return ${domainName?uncap_first}Repository
                 .findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorEnum.${domainName?upper_case}_NOT_EXIST));
+                .orElseThrow(() -> new BusinessException(ErrorEnum.${class2FinalField(domainName)}_NOT_EXIST));
     }
 
     public ${domainName?cap_first} create(${domainName?cap_first}CreateDTO ${domainName?uncap_first}CreateDTO) {
@@ -83,7 +83,7 @@ public class ${domainName?cap_first}Service {
                     ${domainName?uncap_first}Repository.save(new${domainName?cap_first});
                     return new${domainName?cap_first};
                 })
-                .orElseThrow(() -> new BusinessException(ErrorEnum.${domainName?upper_case}_NOT_EXIST));
+                .orElseThrow(() -> new BusinessException(ErrorEnum.${class2FinalField(domainName)}_NOT_EXIST));
     }
 
     public ${domainName?cap_first} updatePartial(${domainName?cap_first}UpdateDTO ${domainName?uncap_first}UpdateDTO) {
@@ -103,7 +103,7 @@ public class ${domainName?cap_first}Service {
                     ${domainName?uncap_first}Repository.save(x);
                     return x;
                 })
-                .orElseThrow(() -> new BusinessException(ErrorEnum.${domainName?upper_case}_NOT_EXIST));
+                .orElseThrow(() -> new BusinessException(ErrorEnum.${class2FinalField(domainName)}_NOT_EXIST));
     }
 
     public void delete(Long id) {
